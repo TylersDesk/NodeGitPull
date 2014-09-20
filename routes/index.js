@@ -1,6 +1,7 @@
 //Some required libs
-var spawn = require('child_process').spawn;
-
+var exec = require('child_process').exec
+	, runGitPull
+	;
 
 /*
  * GET home page.
@@ -10,20 +11,8 @@ exports.pull = function(req, res){
 	console.log('I had a request. OMG!');
 	console.log(req.body.payload);
 
-	var runGitPull = spawn('ls', [], {
-		cwd: '/opt/project-maynard'
-	});
-
-	runGitPull.stdout.on('data', function(data) {
-		console.log('LS returns:', + data);
-	});
-
-	runGitPull.stderr.on('data', function(data) {
-		console.log('stderr:', + data);
-	});
-
-	runGitPull.on('close', function(code) {
-		console.log('Child Process exetid with code: ', + code);
+	runGitPull = exec('ls', {cwd:"/opt/project-maynard"}, function(error, stdout, stderr){
+		console.log("Output:", stdout);
 	});
 
 	res.json({
