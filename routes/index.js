@@ -11,7 +11,8 @@ exports.pull = function(req, res){
 	console.log('I had a request. OMG!');
 	console.log(req.body.payload);
 
-	runGitPull = exec('ls', {cwd:"/opt/project-maynard"}, function(error, stdout, stderr){
+	runGitPull = exec('git pull', {cwd:"/opt/project-maynard"}, function(error, stdout, stderr){
+		console.log("Error: ", error);
 		console.log("Output:", stdout);
 	});
 
